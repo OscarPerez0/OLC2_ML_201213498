@@ -53,16 +53,16 @@ def ArbolD(_info):
 
     # Combinando los atributos en una lista simple de tuplas
     
-    with st.expander("Resultado con etiquetas"):
+    with st.expander("Matriz de valores"):
         featuresencoders = list(zip((listafittransform)))
         featuresencoders = np.array(featuresencoders)
         tamcolumnas = len(listaa)
         tamfilas = featuresencoders.size
         featuresencoders = featuresencoders.reshape(int(tamfilas/tamcolumnas),tamcolumnas)
       
-        st.dataframe(featuresencoders)
+        ##st.dataframe(featuresencoders)
 
-    with st.expander('Resultados sin etiquetas'):
+    with st.expander('matriz de clasificacion con valores reales'):
         features = list(zip(np.asarray(listadedf)))
         features = np.asarray(features)
         tamcolumnas = len(features)
@@ -76,13 +76,13 @@ def ArbolD(_info):
     fig,ax = plt.subplots()
     plot_tree(clf,filled = True, fontsize=10)
     st.subheader('Graficas')
-    with st.expander("Mostrar arbol sin etiquetas"):
+    with st.expander("Arbol sin clasificar"):
         plt.figure(figsize=(50,50))
         st.pyplot(fig)
 
     clf2 = DecisionTreeClassifier(max_depth=5).fit(featuresencoders,label)
     fig2,ax2 = plt.subplots()
     plot_tree(clf2,filled = True)
-    with st.expander("Mostrar arbol con etiquetas"):
+    with st.expander("Arbol clasificando"):
         plt.figure(figsize=(50,50))
         st.pyplot(fig2)

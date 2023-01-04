@@ -8,25 +8,22 @@ from sklearn.naive_bayes import GaussianNB
 
 def ClGaussiano(_info):
     st.title('Clasificador Gaussiano')
-    st.subheader('Datos obtenidos')
+    st.subheader('Datos obtenidos del archivo')
     st.write(_info)
-    st.subheader('Parametros')
-    param = st.text_input('Ingrese parametro de aproximacion','*Nombre de columna')
-    
-    #eliminar una columna no deseada, para no tomarla en cuenta en el entrenamiento del modelo
-    
+    st.subheader('Parametros para clasificacion')
+    param = st.text_input('Ingrese Columna para clasificar datos','*Nombre de columna')
     
     data_top = _info.columns.values
     listaa = data_top.tolist()
 
-    listaaux = ["Seleccionar"]+listaa
-    eliminarcolumna =st.selectbox('Eliminar una columna?',listaaux)
+    listaaux = ["Columna a orrar"]+listaa
+    eliminarcolumna =st.selectbox('Elimine columnas String o Float',listaaux)
 
-    # elimino de la tabla el parametro predecir
+   
     listaa.remove(param)
-    if eliminarcolumna != 'Seleccionar':
+    if eliminarcolumna != 'Columna a borrar':
         listaa.remove(eliminarcolumna)
-    # ahora con el eliminado buscarlo y guardarlo
+   
     result = _info[param]
 
 
@@ -39,21 +36,20 @@ def ClGaussiano(_info):
     listadedf = np.array(listadedf)
 
 
-    # Creacion del codificador de palabras
+    
     le = preprocessing.LabelEncoder()
 
-    #Se convierte los String a numeros
+   
     listafittransform = []
     for x in listadedf:
         listafittransform.append(le.fit_transform(x))
 
-    #Se convierte los string a numero del parametro
+    
     label = le.fit_transform(result)
     
 
-    # Combinando los atributos en una lista simple de tuplas
-    #st.subheader('Resultados con etiquetas')
-    with st.expander("Resultado con etiquetas"):
+    
+    with st.expander("Resultado con strings"):
         featuresencoders = list(zip((listafittransform)))
         featuresencoders = np.array(featuresencoders)
         tamcolumnas = len(listaa)
@@ -63,7 +59,7 @@ def ClGaussiano(_info):
         st.dataframe(featuresencoders)
 
     
-    with st.expander('Resultados sin etiquetas'):
+    with st.expander('Resultados sin strings'):
         features = list(zip(np.asarray(listadedf)))
         features = np.asarray(features)
         tamcolumnas = len(features)
@@ -72,15 +68,15 @@ def ClGaussiano(_info):
         st.dataframe(features)
     
     
-    #-Crear el clasificador Gaussiano
+   
     model = GaussianNB()
     model2 = GaussianNB()
-    #Se entrena el modelo
+    
     model.fit(np.asarray(features),np.asarray(result))
     model2.fit(featuresencoders,label)
 
     columna = len(listaa)
-    texto = "Ingrese "+str(columna)+" parametros del vector a comparar, separados por coma(,)"
+    texto = "debe ingresar:  "+str(columna)+" parametros del vector para predecir columna (no ingresar dato de columna), separados por coma(,)"
     predecirresult = st.text_input(texto,'')
 
     if predecirresult != '':
@@ -93,12 +89,12 @@ def ClGaussiano(_info):
         
         co1,co2,co3 = st.columns(3)
         with co2:
-            st.subheader('Prediccion con etiquetas')
+            st.subheader('Prediccion-Clasificacion, Columna donde se clasificaria el registro anterior')
             st.write(predicted)
 
         coo1,coo2,coo3 = st.columns(3)
-        with coo2:
-            st.subheader('Prediccion sin etiquetas')
-            st.write(predicted2)
+       # with coo2:
+            #st.subheader('Prediccion sin etiquetas')
+           # st.write(predicted2)
     
     
