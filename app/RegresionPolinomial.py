@@ -14,10 +14,10 @@ def RPol(_info):
     st.subheader('Parametros')
     col1,col2,col3 = st.columns(3)
     with col1:
-        paramx = st.text_input('Ingrese parametro X','NO')
+        px = st.text_input('Ingrese parametro X','NO')
     
     with col2:
-        paramy = st.text_input('Ingrese parametro Y','A')
+        py = st.text_input('Ingrese parametro Y','A')
     
     with col3:
         grado = st.text_input('Ingrese el grado de la ecuacion','2')
@@ -26,8 +26,8 @@ def RPol(_info):
     with co2:
         prediccion = st.text_input('Ingrese valor para aproximar','000')
 
-    x = _info[paramx]
-    y = _info[paramy]
+    x = _info[px]
+    y = _info[py]
 
     x = np.asarray(x)
     y = np.asarray(y)
@@ -35,12 +35,6 @@ def RPol(_info):
     x = x[:,np.newaxis]
     y = y[:,np.newaxis]
 
-    #plot  de Ecucacion
-    #fig1, ax = plt.subplots()
-    #ax.scatter(x,y)
- 
-    
-    #Preparacion de la informacion
     nb_degree = int(grado)
     polinomial_feature = PolynomialFeatures(degree = nb_degree)
     X_TRANSF = polinomial_feature.fit_transform(x)
@@ -75,11 +69,11 @@ def RPol(_info):
     plt.xlim(x_new_min, x_new_max)
     title = 'Degree = {}; RMSE = {}; R2={};'.format(nb_degree,rmse,r2)
     plt.title("Regresion polinomial\n"+title ,fontsize = 10)
-    plt.xlabel(paramx)
-    plt.ylabel(paramy)
+    plt.xlabel(px)
+    plt.ylabel(py)
 
 
-    #Impresion de resultados
+
     
     st.subheader('Resultados')
     ecuacion = ''

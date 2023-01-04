@@ -24,11 +24,11 @@ def ArbolD(_info):
     listaaux = ["Seleccionar"]+listaa
     eliminarcolumna =st.selectbox('Eliminar una columna?',listaaux)
 
-    # elimino de la tabla el parametro predecir
+   
     listaa.remove(param)
     if eliminarcolumna != 'Seleccionar':
         listaa.remove(eliminarcolumna)
-    # ahora con el eliminado buscarlo y guardarlo
+ 
     result = _info[param]
 
 
@@ -40,19 +40,17 @@ def ArbolD(_info):
         listadedf.append(aux)
     listadedf = np.array(listadedf)
 
-     # Creacion del codificador de palabras
+    
     le = preprocessing.LabelEncoder()
 
-    #Se convierte los String a numeros
+  
     listafittransform = []
     for x in listadedf:
         listafittransform.append(le.fit_transform(x))
 
-    #Se convierte los string a numero del parametro
     label = le.fit_transform(result)
 
-    # Combinando los atributos en una lista simple de tuplas
-    
+ 
     with st.expander("Matriz de valores"):
         featuresencoders = list(zip((listafittransform)))
         featuresencoders = np.array(featuresencoders)
@@ -60,7 +58,7 @@ def ArbolD(_info):
         tamfilas = featuresencoders.size
         featuresencoders = featuresencoders.reshape(int(tamfilas/tamcolumnas),tamcolumnas)
       
-        ##st.dataframe(featuresencoders)
+      
 
     with st.expander('matriz de clasificacion con valores reales'):
         features = list(zip(np.asarray(listadedf)))
@@ -71,7 +69,7 @@ def ArbolD(_info):
         st.dataframe(features)
   
 
-    #se encaja con el modelo
+  
     clf = DecisionTreeClassifier(max_depth=4).fit(features,result)
     fig,ax = plt.subplots()
     plot_tree(clf,filled = True, fontsize=10)

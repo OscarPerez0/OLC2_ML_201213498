@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 from RegresionLineal import * 
 from RegresionPolinomial import *
-from ClasificadorGaussiano import *
+from Gaussiano import *
 from ClasificadorArbolesdeDecision import *
 from RedNeuronal import *
 
@@ -17,7 +17,7 @@ uploaded_file = st.file_uploader(label = "Seleccione Archivo para Analizar",type
 
 df = "" #Variable donde se carga el dataset
 if uploaded_file is not None:
-  #Cuando lo cargue
+
   print(uploaded_file)
   print(uploaded_file.type)
   print('Si cargo archivo')

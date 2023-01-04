@@ -7,43 +7,41 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 
 def RL(_info):
-    print("Ingreso a regresion Lineal") #print server
-    st.title('Regresion lineal') #titulo pagina
+    print("Ingreso a regresion Lineal") 
+    st.title('Regresion lineal') 
     st.subheader('Informacion obtenida')
     st.write(_info)
-    st.subheader('Parametros para evaluacion')
+    st.subheader('Parametros para analisis')
     col1,col2 = st.columns(2)
     with col1:
-        paramx = st.text_input('Ingrese parametro X','NO') #el NO varia segun lo ingresado en el input
+        px = st.text_input('Ingrese columna X','NO') 
     
     with col2:
-        paramy = st.text_input('Ingrese parametro Y','A') #el A varia segun lo ingresado en el input
-   
+        py = st.text_input('Ingrese columna Y','A') 
 
-    #inicio del Algoritmo de  regresion lineal
-    x = np.asarray(_info[paramx]).reshape(-1,1)
-    y = _info[paramy]
     
-    regr = linear_model.LinearRegression()
-    regr.fit(x,y)
+    x = np.asarray(_info[px]).reshape(-1,1)
+    y = _info[py]
+    
+    regresion = linear_model.LinearRegression()
+    regresion.fit(x,y)
 
-    y_pred = regr.predict(x)
-    regresion = regr.coef_
+    y_pred = regresion.predict(x)
+    regresion = regresion.coef_
 
-    #prueba de resultado
-  
+
 
     st.subheader('Resultados')
     
     fig, ax = plt.subplots()
     ax.scatter(x,y, color='black')
     ax.plot(x,y_pred,color='red')
-    plt.title('Regresio lineal\nCoeficiente de regresion: '+str(regresion))#,'  con un error cuadratico: ',mean_squared_error(y,y_pred))
-    plt.xlabel(paramx)
-    plt.ylabel(paramy)
+    plt.title('Regresio lineal\nCoeficiente de regresion: '+str(regresion))
+    plt.xlabel(px)
+    plt.ylabel(py)
     plt.grid()
-    #st.pyplot(fig)
-    texto = str(round(regr.coef_[0],2))+"X+"+str(round(regr.intercept_,2))
+ 
+    texto = str(round(regresion.coef_[0],2))+"X+"+str(round(regresion.intercept_,2))
     print("Ecuacion: ",texto)
     d = {'Coeficiente de regresion': [regresion], 'Error cuadratico':[mean_squared_error(y,y_pred)], 'Coeficinte de determinacion':[r2_score(y,y_pred)],'Ecuacion lineal Ax + B':texto}
     dresult = pd.DataFrame(data=d)
@@ -57,10 +55,10 @@ def RL(_info):
         ax2.scatter(x,y, color='red')
         st.pyplot(fig2)
 
-#ingresando valor para aproximar
+
     c1,c2,c3 = st.columns(3)
     with c2:
        
         calcular = st.text_input('Ingrese valor para aproximar con este modelo: ','0')
-        variable = regr.predict([[int(calcular)]])
+        variable = regresion.predict([[int(calcular)]])
         st.text(variable)
