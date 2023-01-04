@@ -1,0 +1,7 @@
+pip install streamlit
+pip install pandas
+pip install xlrd
+pip install matplotlib
+pip install numpy
+pip install -U scikit-learn
+pip install scikit-metrics
