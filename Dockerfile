@@ -14,7 +14,7 @@ RUN pip install numpy
 RUN pip install -U scikit-learn
 RUN pip install scikit-metrics
 
-RUN git clone https://github.com/OscarPerez0/201213498OLC2P2.git
+RUN git clone https://github.com/OscarPerez0/OLC2_ML_201213498.git
 
 RUN pip install -r requirements.txt
 

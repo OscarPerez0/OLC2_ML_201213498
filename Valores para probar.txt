@@ -1,8 +1,0 @@
-Regresion Lineal  - Netflix
-year - 2030
-Regresio polinomial  - Netflix
-year - 2030
-Gauseano - heart  (sin floats, eliminar oldpeak)
-1,2,130,200,0,1,174,0,2,0,2,1  Vector
-
-
